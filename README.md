@@ -1,6 +1,6 @@
 # hello-java
 
-This is a simple demo app that returns one of several "cool expressions" at random.
+This is a simple demo app that returns one of several expressions at random.
 
 This README contains instructions for [building the image](README.md#build-the-image) and [testing the app locally](README.md#test-the-app-locally).
 
@@ -104,7 +104,7 @@ container_id=`docker run -d -p 8080:8080 hello-java:1.0.0-TAG_SUFFIX`
 ```
 The `docker run` command returns the id of the running container, which we are storing in a variable. You can also run `docker ps` to see the running containers.
 
-Send a request to the app. It should return a "cool" expression.
+Send a request to the app. It should return an expression.
 ```
 curl http://localhost:8080; echo
 ```
