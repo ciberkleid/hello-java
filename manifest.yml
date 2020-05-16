@@ -1,0 +1,8 @@
+---
+applications:
+  - name: hello-java
+    memory: 1G
+    path: target/hello-java-1.0.0.jar
+    random-route: true
+#    routes:
+#      - route: hello-java.apps.pcfone.io
