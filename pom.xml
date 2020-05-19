@@ -17,7 +17,6 @@
 	<properties>
 		<java.version>11</java.version>
 		<jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
-		<maven.build.timestamp.format>yyyyMMdd-HHmmssSSS</maven.build.timestamp.format>
 	</properties>
 
 	<dependencies>
@@ -48,13 +47,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<layers>
 						<enabled>true</enabled>
@@ -83,16 +75,17 @@
 						</executions>
 						<configuration>
 							<to>
-								<image>registry.hub.docker.com/ciberkleid/${project.artifactId}</image>
+<!--								<image>registry.hub.docker.com/ciberkleid/${project.artifactId}</image>-->
+								<image>localhost:5000/${project.artifactId}</image>
 								<tags>
-									<tag>${project.version}</tag>
+									<tag>${project.version}-jib</tag>
 								</tags>
 							</to>
-							<labels>
-								<maintainer>me@example.com</maintainer>
-							</labels>
 							<container>
-								<user>1001</user>
+								<labels>
+									<maintainer>me@example.com</maintainer>
+								</labels>
+								<user>nonroot</user>
 							</container>
 						</configuration>
 					</plugin>
@@ -100,7 +93,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>jib-debug</id>
+			<id>jibd</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -120,32 +113,21 @@
 								<image>gcr.io/distroless/java:11-debug</image>
 							</from>
 							<to>
-								<image>${project.artifactId}${project.version}-jib-debug</image>
+								<image>${project.artifactId}:${project.version}-jib-debug</image>
 							</to>
-							<container>
-								<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-								<jvmFlags>
-									<jvmFlag>-Xms512m</jvmFlag>
-									<jvmFlag>-Ddebug</jvmFlag>
-									<jvmFlag>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmFlag>
-									<jvmFlag>-XX:TieredStopAtLevel=1</jvmFlag>
-									<jvmFlag>-noverify</jvmFlag>
-									<jvmFlag>-Dspring.output.ansi.enabled=always</jvmFlag>
-									<jvmFlag>-X</jvmFlag>
-									<jvmFlag>-Djib.serialize=true</jvmFlag>
-								</jvmFlags>
-								<ports>
-									<port>8080</port>
-									<port>5005</port>
-								</ports>
-								<environment>
-									<SPRING_PROFILES_ACTIVE>dev</SPRING_PROFILES_ACTIVE>
-									<LOGGING_LEVEL_ROOT>INFO</LOGGING_LEVEL_ROOT>
-									<LOGGING_LEVEL_IO_PIVOTAL>DEBUG</LOGGING_LEVEL_IO_PIVOTAL>
-									<SPRING_SECURITY_USER_NAME>user</SPRING_SECURITY_USER_NAME>
-									<SPRING_SECURITY_USER_NAME>pass</SPRING_SECURITY_USER_NAME>
-								</environment>
-							</container>
+                            <container>
+                                    <jvmFlags>
+                                            <jvmFlag>-Ddebug</jvmFlag>
+                                            <jvmFlag>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmFlag>
+                                    </jvmFlags>
+                                    <ports>
+                                            <port>8080</port>
+                                            <port>5005</port>
+                                    </ports>
+                                    <environment>
+                                            <LOGGING_LEVEL_ROOT>INFO</LOGGING_LEVEL_ROOT>
+									</environment>
+                            </container>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -168,7 +150,7 @@
 						</executions>
 						<configuration>
 							<image>
-								<name>ciberkleid/${project.artifactId}:${project.version}-pk</name>
+								<name>{project.artifactId}:${project.version}-pk</name>
 							</image>
 							<environmentVariables>
 								<!--Image Labels: see https://github.com/paketo-buildpacks/image-labels-->
@@ -184,7 +166,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>pk-debug</id>
+			<id>pkd</id>
 			<build>
 				<plugins>
 					<plugin>
