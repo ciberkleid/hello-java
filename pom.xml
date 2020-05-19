@@ -149,9 +149,6 @@
 							</execution>
 						</executions>
 						<configuration>
-							<image>
-								<name>{project.artifactId}:${project.version}-pk</name>
-							</image>
 							<environmentVariables>
 								<!--Image Labels: see https://github.com/paketo-buildpacks/image-labels-->
 								<BP_IMAGE_LABELS>maintainer=me@example.com</BP_IMAGE_LABELS>
