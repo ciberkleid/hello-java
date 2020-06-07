@@ -12,7 +12,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     ./mvnw clean package -DskipTests --offline
 
 FROM adoptopenjdk:11-jre-hotspot AS release
-LABEL org.opencontainers.image.authors="me@example.com"
+LABEL maintainer="me@example.com"
 WORKDIR /workspace
 COPY --from=build /workspace/target/*.jar app.jar
 USER 1002

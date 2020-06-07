@@ -15,7 +15,7 @@ WORKDIR /workspace/target/dependency
 RUN java -Djarmode=layertools -jar ../*.jar extract
 
 FROM gcr.io/distroless/java:${JAVA_VERSION} AS release
-LABEL org.opencontainers.image.authors="me@example.com"
+LABEL maintainer="me@example.com"
 WORKDIR /workspace
 ARG DEPENDENCY=/workspace/target/dependency
 COPY --from=build ${DEPENDENCY}/dependencies/ .
