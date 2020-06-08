@@ -2,12 +2,12 @@
 
 FROM adoptopenjdk:11-jdk-hotspot AS build
 WORKDIR /workspace
-COPY ../.mvn .mvn
-COPY ../mvnw mvnw
-COPY ../pom.xml .
+COPY ../../../.mvn .mvn
+COPY ../../../mvnw mvnw
+COPY ../../../pom.xml .
 RUN --mount=type=cache,target=/root/.m2 \
     ./mvnw dependency:go-offline
-COPY ../src src/
+COPY ../../../src src/
 RUN --mount=type=cache,target=/root/.m2 \
     ./mvnw clean package -DskipTests --offline
 

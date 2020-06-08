@@ -1,0 +1,25 @@
+ARG VERSION
+
+FROM adoptopenjdk:11-jdk-hotspot AS build
+WORKDIR /workspace
+COPY ../../../.mvn .mvn
+COPY ../../../mvnw mvnw
+COPY ../../../pom.xml .
+RUN ./mvnw dependency:go-offline
+COPY ../../../src src/
+RUN ./mvnw clean package -DskipTests --offline
+WORKDIR /workspace/target/dependency
+RUN java -Djarmode=layertools -jar ../*.jar extract
+
+FROM adoptopenjdk:11-jre-hotspot AS release
+ARG VERSION
+LABEL maintainer="me@example.com"
+LABEL version=$VERSION
+WORKDIR /workspace
+ARG DEPENDENCY=/workspace/target/dependency
+COPY --from=build ${DEPENDENCY}/dependencies/ .
+COPY --from=build ${DEPENDENCY}/spring-boot-loader/ .
+COPY --from=build ${DEPENDENCY}/snapshot-dependencies/ .
+COPY --from=build ${DEPENDENCY}/application/ .
+USER 1002
+ENTRYPOINT ["sh", "-c", "exec java ${JAVA_OPTS} -cp .:lib/* org.springframework.boot.loader.JarLauncher ${0} ${@}"]

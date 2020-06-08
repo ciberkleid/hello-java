@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../app
+#patchesStrategicMerge:
+#- ../../../k8s-temp/increase_replicas.yaml
+#- ../../../k8s-temp/set_memory.yaml
+images:
+  - name: hello-java
+    newName: ciberkleid/hello-java
+    newTag: 1.0.0
+
+namespace: springonetour-cicd
+namePrefix: dev-
+#nameSuffix: "-001"
+commonLabels:
+  app: springonetour
+#commonAnnotations:
+#  oncallPager: 800-555-1212
+
+#generatorOptions:
+#  disableNameSuffixHash: true
+#  labels:
+#    type: generated
+#  annotations:
+#    note: generated
+#
+#configMapGenerator:
+#  - name: example-configmap-1
+#    files:
+#      - ../../../k8s-temp/application.properties
+#    literals:
+#      - FOO_LITERAL=Bar_literal
+#
+#secretGenerator:
+#- name: example-secret-1
+#  files:
+#  - ../../../k8s-temp/password.txt
+#- name: example-secret-2
+#  literals:
+#  - username=admin_literal
+#  - password=secret_literal
+
+#vars:
+#  - name: MY_SERVICE_NAME
+#    objref:
+#      kind: Service
+#      name: hello-java
+#      apiVersion: v1

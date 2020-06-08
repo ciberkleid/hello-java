@@ -1,0 +1,16 @@
+bases:
+- ../../base
+namespace: springonetour-cicd
+images:
+- name: placeholder_changeme
+  newName: ciberkleid/hello-java
+  newTag: latest
+#- digest: $IMAGE_DIGEST
+commonLabels:
+  app: hello-java
+namePrefix: dev-
+configMapGenerator:
+  - name: configmap-application
+    files:
+      - ../../../../../../src/main/resources/application.yml
+

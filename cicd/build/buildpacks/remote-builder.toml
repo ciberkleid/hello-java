@@ -1,0 +1,61 @@
+buildpacks = [
+  # { id = "paketo-buildpacks/adopt-openjdk",              image = "gcr.io/paketo-buildpacks/adopt-openjdk" },
+  # { id = "paketo-buildpacks/amazon-corretto",            image = "gcr.io/paketo-buildpacks/amazon-corretto" },
+  # { id = "paketo-buildpacks/azul-zulu",                  image = "gcr.io/paketo-buildpacks/azul-zulu" },
+  # { id = "paketo-buildpacks/eclipse-openj9",             image = "gcr.io/paketo-buildpacks/eclipse-openj9" },
+  # { id = "paketo-buildpacks/graalvm",                    image = "gcr.io/paketo-buildpacks/graalvm" },
+  # { id = "paketo-buildpacks/sap-machine",                image = "gcr.io/paketo-buildpacks/sap-machine" },
+  { id = "paketo-buildpacks/apache-tomcat",              image = "gcr.io/paketo-buildpacks/apache-tomcat" },
+  { id = "paketo-buildpacks/azure-application-insights", image = "gcr.io/paketo-buildpacks/azure-application-insights" },
+  { id = "paketo-buildpacks/bellsoft-liberica",          image = "gcr.io/paketo-buildpacks/bellsoft-liberica" },
+  { id = "paketo-buildpacks/debug",                      image = "gcr.io/paketo-buildpacks/debug" },
+  { id = "paketo-buildpacks/dist-zip",                   image = "gcr.io/paketo-buildpacks/dist-zip" },
+  { id = "paketo-buildpacks/encrypt-at-rest",            image = "gcr.io/paketo-buildpacks/encrypt-at-rest" },
+  { id = "paketo-buildpacks/executable-jar",             image = "gcr.io/paketo-buildpacks/executable-jar" },
+  { id = "paketo-buildpacks/google-stackdriver",         image = "gcr.io/paketo-buildpacks/google-stackdriver" },
+  { id = "paketo-buildpacks/gradle",                     image = "gcr.io/paketo-buildpacks/gradle" },
+  { id = "paketo-buildpacks/image-labels",               image = "gcr.io/paketo-buildpacks/image-labels" },
+  { id = "paketo-buildpacks/jmx",                        image = "gcr.io/paketo-buildpacks/jmx" },
+  { id = "paketo-buildpacks/maven",                      image = "gcr.io/paketo-buildpacks/maven" },
+  { id = "paketo-buildpacks/procfile",                   image = "gcr.io/paketo-buildpacks/procfile" },
+  { id = "paketo-buildpacks/sbt",                        image = "gcr.io/paketo-buildpacks/sbt" },
+  { id = "paketo-buildpacks/spring-boot",                image = "gcr.io/paketo-buildpacks/spring-boot" },
+]
+
+[[order]]
+group = [
+
+### Order is strictly enforced
+  # { id = "paketo-buildpacks/adopt-openjdk" },
+  # { id = "paketo-buildpacks/amazon-corretto" },
+  # { id = "paketo-buildpacks/azul-zulu" },
+  # { id = "paketo-buildpacks/eclipse-openj9" },
+  # { id = "paketo-buildpacks/graalvm" },
+  # { id = "paketo-buildpacks/sap-machine" },
+  { id = "paketo-buildpacks/bellsoft-liberica" },
+  { id = "paketo-buildpacks/gradle",                     optional = true },
+  { id = "paketo-buildpacks/maven",                      optional = true },
+  { id = "paketo-buildpacks/sbt",                        optional = true },
+
+### Order determines precedence
+  { id = "paketo-buildpacks/executable-jar",             optional = true },
+  { id = "paketo-buildpacks/apache-tomcat",              optional = true },
+  { id = "paketo-buildpacks/dist-zip",                   optional = true },
+  { id = "paketo-buildpacks/spring-boot",                optional = true },
+  { id = "paketo-buildpacks/procfile",                   optional = true },
+
+### Order does not matter
+  { id = "paketo-buildpacks/azure-application-insights", optional = true },
+  { id = "paketo-buildpacks/debug",                      optional = true },
+  { id = "paketo-buildpacks/google-stackdriver",         optional = true },
+  { id = "paketo-buildpacks/jmx",                        optional = true },
+
+### Order is strictly enforced
+  { id = "paketo-buildpacks/encrypt-at-rest",            optional = true },
+  { id = "paketo-buildpacks/image-labels",               optional = true },
+]
+
+[stack]
+id          = "io.buildpacks.stacks.bionic"
+build-image = "gcr.io/paketo-buildpacks/build:base-cnb"
+run-image   = "gcr.io/paketo-buildpacks/run:base-cnb"

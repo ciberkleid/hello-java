@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: placeholder_changeme
+  name: placeholder_changeme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: placeholder_changeme
+  template:
+    metadata:
+      labels:
+        app: placeholder_changeme
+    spec:
+      containers:
+      - image: placeholder_changeme
+        name: placeholder_changeme
