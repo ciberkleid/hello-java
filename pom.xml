@@ -143,20 +143,21 @@
 						<executions>
 							<execution>
 								<goals>
-									<goal>build-info</goal>
 									<goal>build-image</goal>
 								</goals>
 							</execution>
 						</executions>
 						<configuration>
-							<environmentVariables>
-								<!--Image Labels: see https://github.com/paketo-buildpacks/image-labels-->
-								<BP_IMAGE_LABELS>maintainer=me@example.com</BP_IMAGE_LABELS>
-								<BP_OCI_AUTHORS>me@example.com</BP_OCI_AUTHORS>
-							</environmentVariables>
 							<layers>
 								<enabled>true</enabled>
 							</layers>
+							<image>
+								<env>
+									<BP_IMAGE_LABELS>maintainer=me@example.com</BP_IMAGE_LABELS>
+									<BP_OCI_AUTHORS>me@example.com</BP_OCI_AUTHORS>
+									<BP_JVM_VERSION>8.*</BP_JVM_VERSION>
+								</env>
+							</image>
 						</configuration>
 					</plugin>
 				</plugins>
