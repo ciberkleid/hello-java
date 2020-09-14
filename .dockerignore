@@ -1,0 +1,8 @@
+### Exclude everything by default
+*
+
+### Include what is needed to build image
+!.mvn/
+!mvnw
+!pom.xml
+!src/
