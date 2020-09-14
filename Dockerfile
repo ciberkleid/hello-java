@@ -1,11 +1,13 @@
 FROM adoptopenjdk:11-jdk-hotspot AS build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+       maven=3.6* \
+   && apt-get clean \
+   && rm -rf /var/lib/apt/lists/*
 WORKDIR /workspace
-COPY .mvn .mvn
-COPY mvnw mvnw
 COPY pom.xml .
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline
 COPY src/ src/
-RUN ./mvnw clean package -DskipTests --offline
+RUN mvn clean package -DskipTests --offline
 
 FROM adoptopenjdk:11-jre-hotspot
 LABEL maintainer="me@example.com"
