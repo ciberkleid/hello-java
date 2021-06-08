@@ -43,22 +43,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-image</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<image>
-						<env>
-							<BP_IMAGE_LABELS>maintainer=me@example.com</BP_IMAGE_LABELS>
-							<BP_OCI_AUTHORS>me@example.com</BP_OCI_AUTHORS>
-<!--							<BP_JVM_VERSION>15.*</BP_JVM_VERSION>-->
-						</env>
-					</image>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -135,6 +119,33 @@
                                             <LOGGING_LEVEL_ROOT>INFO</LOGGING_LEVEL_ROOT>
 									</environment>
                             </container>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>pk</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>build-image</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<image>
+								<env>
+									<BP_IMAGE_LABELS>maintainer=me@example.com</BP_IMAGE_LABELS>
+									<BP_OCI_AUTHORS>me@example.com</BP_OCI_AUTHORS>
+									<!--							<BP_JVM_VERSION>15.*</BP_JVM_VERSION>-->
+								</env>
+							</image>
 						</configuration>
 					</plugin>
 				</plugins>
