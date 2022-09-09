@@ -1,5 +1,3 @@
-# Dockerfile (docker build . -f Dockerfile ...)
-
 FROM adoptopenjdk:11-jdk-hotspot AS build
 RUN apt-get update && apt-get install -y --no-install-recommends \
        maven=3.6* \
